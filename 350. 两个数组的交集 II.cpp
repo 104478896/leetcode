@@ -28,24 +28,54 @@ public:
         // return ans;
     
 
-        //哈希表
-        if(nums1.size()>nums2.size()){
-            return intersect(nums2,nums1);//互换位置，保证数组长度较短的在前
+        // //哈希表
+        // if(nums1.size()>nums2.size()){
+        //     return intersect(nums2,nums1);//互换位置，保证数组长度较短的在前
+        // }
+        // map<int,int>cnt;
+        // vector<int>ans;
+        // for(auto num:nums1){
+        //     cnt[num]++;
+        // }
+        // for(auto num:nums2){
+        //     if(cnt.count(num)){
+        //         ans.push_back(num);
+        //         cnt[num]--;
+        //         if(cnt[num]==0){
+        //             cnt.erase(num);
+        //         }
+        //     }
+        // }
+        // return ans;
+
+
+        //二分查找
+        if(nums1.size()<nums2.size()){
+            return intersect(nums2,nums1);
         }
-        map<int,int>cnt;
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
         vector<int>ans;
-        for(auto num:nums1){
-            cnt[num]++;
-        }
-        for(auto num:nums2){
-            if(cnt.count(num)){
-                ans.push_back(num);
-                cnt[num]--;
-                if(cnt[num]==0){
-                    cnt.erase(num);
+        int len1=nums1.size();
+        int len2=nums2.size();
+        int left=0;
+        for(int i=0;i<len2;++i){
+            int right=len1-1;
+            int mid;
+            while(left<=right){
+                mid=left+(right-left)/2;
+                if(nums1[mid]<nums2[i]){
+                    left=mid+1;
+                }else{
+                    right=mid-1;
                 }
+            }
+            if(nums1[left]==nums2[i]){
+                ans.push_back(nums2[i]);
+                left++;
             }
         }
         return ans;
+
     }
 };
