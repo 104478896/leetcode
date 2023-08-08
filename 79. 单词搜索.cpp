@@ -32,7 +32,7 @@ public:
             return false;
 
         }
-        //如果已被访问过，返回true
+        //如果已被访问过，返回false
         if(visited[x][y]){
             return false;
         }
